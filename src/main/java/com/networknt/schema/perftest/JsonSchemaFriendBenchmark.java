@@ -17,11 +17,11 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-public class NetworkntBenchmark {
+public class JsonSchemaFriendBenchmark {
 
     @State(Scope.Thread)
     public static class BenchmarkState {
-        private Callable<Object> basic = new NetworkntBasicRunner();
+        private Callable<Object> basic = new JsonSchemaFriendBasicRunner();
     }
 
     @BenchmarkMode(Mode.Throughput)
@@ -34,7 +34,7 @@ public class NetworkntBenchmark {
     }
 
     public static void main(String[] args) throws RunnerException {
-        Options opt = new OptionsBuilder().include(NetworkntBenchmark.class.getSimpleName())
+        Options opt = new OptionsBuilder().include(JsonSchemaFriendBenchmark.class.getSimpleName())
                 .addProfiler(GCProfiler.class).build();
 
         new Runner(opt).run();
