@@ -10,7 +10,7 @@ import com.networknt.schema.ValidationMessage;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * Created by steve on 1/14/2016.
@@ -66,7 +66,7 @@ public class NetworkntPerf {
     {
         String name;
         JsonNode value;
-        Set<ValidationMessage> errors;
+        Collection<ValidationMessage> errors;
         for (final Map.Entry<String, JsonNode> entry: schemas.entrySet()) {
             name = entry.getKey();
             value = entry.getValue();
