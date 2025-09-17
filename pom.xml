@@ -19,6 +19,7 @@
         <logback.version>1.5.18</logback.version>
         <everit-json-schema.version>1.14.6</everit-json-schema.version>
         <json-schema-validator.version>1.5.9</json-schema-validator.version>
+        <json-schema.version>1.8.2</json-schema.version>
         <jmh.version>1.37</jmh.version>
         <nexus-staging-maven.version>1.7.0</nexus-staging-maven.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
@@ -62,6 +63,11 @@
             <artifactId>json-schema-validator</artifactId>
             <version>${json-schema-validator.version}</version>
         </dependency>
+		<dependency>
+			<groupId>dev.harrel</groupId>
+			<artifactId>json-schema</artifactId>
+			<version>${json-schema.version}</version>
+		</dependency>        
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

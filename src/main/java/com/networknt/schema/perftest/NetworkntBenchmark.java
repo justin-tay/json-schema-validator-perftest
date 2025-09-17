@@ -49,7 +49,7 @@ public class NetworkntBenchmark {
 				schemas.fieldNames().forEachRemaining(names::add);
 				schemaNames = names;
 			} catch (IOException e) {
-				System.err.println(e);
+				e.printStackTrace();
 			}
 		}
 	}
