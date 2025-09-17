@@ -1,5 +1,6 @@
 package com.networknt.schema.perftest;
 
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 import org.openjdk.jmh.annotations.Benchmark;
@@ -7,6 +8,7 @@ import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
@@ -17,11 +19,21 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-public class NetworkntBenchmark {
+public class ComparisonBenchmark {
+    public static final String NETWORKNT = "networknt";
+    public static final String DEV_HARREL = "devHarrel";
+    public static final String EVERIT = "everit";
+    public static final String JSON_SCHEMA_FRIEND = "jsonSchemaFriend";
+    public static final String OPTIMUM_CODE = "optimumCode";
 
     @State(Scope.Thread)
     public static class BenchmarkState {
-        private Callable<Object> basic = new NetworkntBasicRunner();
+        @Param({ NETWORKNT, EVERIT, DEV_HARREL, JSON_SCHEMA_FRIEND, OPTIMUM_CODE })
+        public String implementation;
+
+        private Map<String, Callable<Object>> basic = Map.of(NETWORKNT, new NetworkntBasicRunner(), DEV_HARREL,
+                new DevHarrelBasicRunner(), EVERIT, new EveritBasicRunner(), JSON_SCHEMA_FRIEND,
+                new JsonSchemaFriendBasicRunner(), OPTIMUM_CODE, new OptimumCodeBasicRunner());
     }
 
     @BenchmarkMode(Mode.Throughput)
@@ -30,11 +42,11 @@ public class NetworkntBenchmark {
     @Measurement(iterations = 5, time = 5)
     @Benchmark
     public void basic(BenchmarkState state, Blackhole blackhole) throws Exception {
-        blackhole.consume(state.basic.call());
+        blackhole.consume(state.basic.get(state.implementation).call());
     }
 
     public static void main(String[] args) throws RunnerException {
-        Options opt = new OptionsBuilder().include(NetworkntBenchmark.class.getSimpleName())
+        Options opt = new OptionsBuilder().include(ComparisonBenchmark.class.getSimpleName())
                 .addProfiler(GCProfiler.class).build();
 
         new Runner(opt).run();
