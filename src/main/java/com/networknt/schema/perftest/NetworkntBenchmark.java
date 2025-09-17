@@ -59,7 +59,7 @@ public class NetworkntBenchmark {
 	@Warmup(iterations = 5, time = 5)
 	@Measurement(iterations = 5, time = 5)
 	@Benchmark
-	public void testValidate(BenchmarkState state) {
+	public void basic(BenchmarkState state) {
 		for (String name : state.schemaNames) {
 			JsonNode json = state.schemas.get(name);
 			state.jsonSchema.validate(json);
