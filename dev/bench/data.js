@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1758185000938,
+  "lastUpdate": 1758188586675,
   "repoUrl": "https://github.com/justin-tay/json-schema-validator-perftest",
   "entries": {
     "JSON Schema Validator Benchmark": [
@@ -1510,6 +1510,78 @@ window.BENCHMARK_DATA = {
           {
             "name": "com.networknt.schema.perftest.NetworkntBenchmark.basic",
             "value": 8079.699263506755,
+            "unit": "ops/s",
+            "extra": "iterations: 3\nforks: 1\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "49700559+justin-tay@users.noreply.github.com",
+            "name": "Justin Tay",
+            "username": "justin-tay"
+          },
+          "committer": {
+            "email": "49700559+justin-tay@users.noreply.github.com",
+            "name": "Justin Tay",
+            "username": "justin-tay"
+          },
+          "distinct": true,
+          "id": "bfd2f3df220131fef43a94d2daa4d2a37db8cd1a",
+          "message": "Add benchmark action",
+          "timestamp": "2025-09-18T17:38:21+08:00",
+          "tree_id": "bf2b07553058c3d19910260004e59aedcbcb8e56",
+          "url": "https://github.com/justin-tay/json-schema-validator-perftest/commit/bfd2f3df220131fef43a94d2daa4d2a37db8cd1a"
+        },
+        "date": 1758188585717,
+        "tool": "jmh",
+        "benches": [
+          {
+            "name": "com.networknt.schema.perftest.ComparisonBenchmark.basic ( {\"implementation\":\"networknt\"} )",
+            "value": 1564.4051621984484,
+            "unit": "ops/s",
+            "extra": "iterations: 3\nforks: 1\nthreads: 1"
+          },
+          {
+            "name": "com.networknt.schema.perftest.ComparisonBenchmark.basic ( {\"implementation\":\"everit\"} )",
+            "value": 4062.9295238465675,
+            "unit": "ops/s",
+            "extra": "iterations: 3\nforks: 1\nthreads: 1"
+          },
+          {
+            "name": "com.networknt.schema.perftest.ComparisonBenchmark.basic ( {\"implementation\":\"devHarrel\"} )",
+            "value": 3256.697183100257,
+            "unit": "ops/s",
+            "extra": "iterations: 3\nforks: 1\nthreads: 1"
+          },
+          {
+            "name": "com.networknt.schema.perftest.ComparisonBenchmark.basic ( {\"implementation\":\"jsonSchemaFriend\"} )",
+            "value": 421.27439889844203,
+            "unit": "ops/s",
+            "extra": "iterations: 3\nforks: 1\nthreads: 1"
+          },
+          {
+            "name": "com.networknt.schema.perftest.DevHarrelBenchmark.basic",
+            "value": 3208.269655634813,
+            "unit": "ops/s",
+            "extra": "iterations: 3\nforks: 1\nthreads: 1"
+          },
+          {
+            "name": "com.networknt.schema.perftest.EveritBenchmark.basic",
+            "value": 4083.415766171736,
+            "unit": "ops/s",
+            "extra": "iterations: 3\nforks: 1\nthreads: 1"
+          },
+          {
+            "name": "com.networknt.schema.perftest.JsonSchemaFriendBenchmark.basic",
+            "value": 453.19768694043046,
+            "unit": "ops/s",
+            "extra": "iterations: 3\nforks: 1\nthreads: 1"
+          },
+          {
+            "name": "com.networknt.schema.perftest.NetworkntBenchmark.basic",
+            "value": 1599.8835004723533,
             "unit": "ops/s",
             "extra": "iterations: 3\nforks: 1\nthreads: 1"
           }
