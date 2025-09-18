@@ -1,11 +1,7 @@
 package com.networknt.schema.perftest;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
-import com.networknt.schema.JsonSchema;
-import com.networknt.schema.JsonSchemaFactory;
-import com.networknt.schema.SpecVersion.VersionFlag;
+import java.util.concurrent.Callable;
+
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -14,44 +10,18 @@ import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
+import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.profile.GCProfiler;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 public class NetworkntBenchmark {
 
 	@State(Scope.Thread)
 	public static class BenchmarkState {
-
-		private JsonSchema jsonSchema;
-		private JsonNode schemas;
-		private List<String> schemaNames;
-
-		public BenchmarkState() {
-			ObjectMapper objectMapper = new ObjectMapper();
-			JsonSchemaFactory factory = JsonSchemaFactory.getInstance(VersionFlag.V4);
-			try {
-				ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-				ObjectReader reader = objectMapper.reader();
-				JsonNode schemaNode = reader.readTree(classLoader.getResourceAsStream("schema-draft4.json"));
-				jsonSchema = factory.getSchema(schemaNode);
-
-				JsonNode root = reader.readTree(classLoader.getResourceAsStream("perftest.json"));
-				schemas = root.get("schemas");
-
-				List<String> names = new ArrayList<>();
-				schemas.fieldNames().forEachRemaining(names::add);
-				schemaNames = names;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		private Callable<Object> basic = new NetworkntBasicRunner();
 	}
 
 	@BenchmarkMode(Mode.Throughput)
@@ -59,11 +29,8 @@ public class NetworkntBenchmark {
 	@Warmup(iterations = 5, time = 5)
 	@Measurement(iterations = 5, time = 5)
 	@Benchmark
-	public void basic(BenchmarkState state) {
-		for (String name : state.schemaNames) {
-			JsonNode json = state.schemas.get(name);
-			state.jsonSchema.validate(json);
-		}
+	public void basic(BenchmarkState state, Blackhole blackhole) throws Exception {
+		blackhole.consume(state.basic.call());
 	}
 
 	public static void main(String[] args) throws RunnerException {
