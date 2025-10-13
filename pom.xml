@@ -12,7 +12,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <argLine>-Xmx512m -XX:MaxPermSize=256m</argLine>
         <slf4j.version>2.0.17</slf4j.version>
@@ -22,6 +22,7 @@
         <json-schema.version>1.8.2</json-schema.version>
         <jsonschemafriend.version>0.12.5</jsonschemafriend.version>
         <json-schema-validator-jvm.version>0.5.1</json-schema-validator-jvm.version>
+        <blaze4j.version>0.0.3</blaze4j.version>
         <jmh.version>1.37</jmh.version>
         <nexus-staging-maven.version>1.7.0</nexus-staging-maven.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
@@ -79,6 +80,11 @@
           <groupId>io.github.optimumcode</groupId>
           <artifactId>json-schema-validator-jvm</artifactId>
           <version>${json-schema-validator-jvm.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>io.github.madhavdhatrak</groupId>
+          <artifactId>blaze4j</artifactId>
+          <version>${blaze4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
